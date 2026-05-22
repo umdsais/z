@@ -133,11 +133,10 @@ function initializeUrlDataTable(sortColumn, sortOrder, actionColumn, keywordColu
         "pageLength": 25,
         "autoWidth": false,
         columns: [{
-            defaultContent: "<input type='checkbox' class='select-checkbox' aria-label='Select row'/>",
-            className: 'select-checkbox__container',
+            defaultContent: "",
+            className: 'select-checkbox',
             searchable: false,
-            orderable: false,
-            title: "<input type='checkbox' id='select-all' class='select-checkbox' aria-label='Select all rows'/>"
+            orderable: false
         }, {
             data: 'group_id',
             visible: false,
@@ -169,7 +168,8 @@ function initializeUrlDataTable(sortColumn, sortOrder, actionColumn, keywordColu
         ],
         select: {
             style: 'multi',
-            selector: 'td:first-child'
+            selector: 'td:first-child',
+            headerCheckbox: 'select-page'
         },
         initComplete: function() {
             if (collectionSelect) {
@@ -273,12 +273,6 @@ function initializeUrlDataTable(sortColumn, sortOrder, actionColumn, keywordColu
 
     $('table.data-table').on("page.dt", function(e) {
         userTable.rows().deselect();
-        $("#select-all").prop("checked", false);
-    });
-    $("#select-all").click(function(e) {
-        $(e.target).prop("checked") === true ? userTable.rows({
-            page: "current"
-        }).select() : userTable.rows().deselect();
     });
 
     // Create bulk action buttons container
